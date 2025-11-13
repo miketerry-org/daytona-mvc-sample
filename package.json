@@ -1,0 +1,32 @@
+{
+  "type": "module",
+  "name": "daytona-mvc-sample",
+  "version": "0.0.1",
+  "description": "Sample task management web application for the daytona mvc framework",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development mesamon index.js",
+    "encrypt": "topsecret encrypt .configs.toml .configs.toml.secret --key-file .configs.key"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miketerry-org/daytona-mvc-sample.git"
+  },
+  "keywords": [
+    "daytona",
+    "mvc",
+    "task",
+    "project",
+    "sample",
+    "example"
+  ],
+  "author": "Mike Terry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miketerry-org/daytona-mvc-sample/issues"
+  },
+  "homepage": "https://github.com/miketerry-org/daytona-mvc-sample#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
