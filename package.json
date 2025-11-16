@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development mesamon index.js",
-    "encrypt": "topsecret encrypt .configs.toml .configs.toml.secret --key-file .configs.key"
+    "encrypt": "topsecret encrypt config.toml config.toml.secret --key-file config.key"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/miketerry-org/daytona-mvc-sample#readme",
   "dependencies": {
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "toml": "^3.0.0",
+    "topsecret": "^0.11.0"
   }
 }

@@ -3,6 +3,8 @@
 .git
 .gitignore
 .npmignore
+Configuration.key
+Configuration.toml
 docs/
 node_modules/
 test/

@@ -1,6 +1,6 @@
-.configs.key
-.configs.toml
 .ds_store
 .env
 .git
+Configuration.key
+Configuration.toml
 node_modules

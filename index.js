@@ -1,5 +1,8 @@
 // index.js:
 
-// import the .env file if it exists
-import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { Application } from "daytona-mvc";
+
+const app = new Application();
+console.log("app.config", app.config);
+console.log("tenants", app.tenants.all[0].config);
