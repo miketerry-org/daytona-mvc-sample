@@ -1,6 +1,6 @@
 // index.js:
 
 import path from "path";
-import { Application } from "daytona-mvc";
+import { Application, env } from "daytona-mvc";
 
-const app = new Application();
+const app = await Application.create();
