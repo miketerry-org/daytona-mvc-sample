@@ -5,7 +5,7 @@
   "description": "Sample task management web application for the daytona mvc framework",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development mesamon index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "encrypt": "topsecret encrypt config.toml config.toml.secret --key-file config.key"
   },
   "repository": {

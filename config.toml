@@ -18,6 +18,12 @@ rate_limit_minutes = 10
 rate_limit_requests = 200
 body_limit = "10kb"
 
+#redis session storage
+redis_host = "127.0.0.1"
+redis_port = 6379
+redis_password = ""   # optional
+redis_prefix = "sess:" # optional
+
 # --- Security ---
 session_secret = "2ab976ae98b6a83ca401a8dd15fefdc193c2d4702e56ea1d5efdea4174407d69"
 
