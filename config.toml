@@ -5,53 +5,50 @@
 id=1
 node_id=1
 http_port = 3000
-
-# --- Logging ---
-log_name = "logs"
-log_expiration_days = 1
-log_capped = false
-log_max_size = 10
-log_max_docs = 10000
-
-# --- Rate limiting ---
 rate_limit_minutes = 10
 rate_limit_requests = 200
 body_limit = "10kb"
-
-#redis session storage
-redis_host = "127.0.0.1"
-redis_port = 6379
-redis_password = ""   # optional
-redis_prefix = "sess:" # optional
-
-# --- Security ---
 session_secret = "2ab976ae98b6a83ca401a8dd15fefdc193c2d4702e56ea1d5efdea4174407d69"
-
-# --- Static + View paths ---
 static_path = "public"
 views_path = "views"
 views_default_layout = "default_layout.hbs"
 views_layouts_path = "views/layouts"
 views_partials_path = "views/partials"
-emails_templates_path = "emails"
 
+# redis session storage
+[redis]
+host = "127.0.0.1"
+port = 6379
+password = ""   # optional
+prefix = "sess:" # optional
+
+# logging
+[log]
+table_name = "logs"
+expiration_days = 1
+capped = false
+max_size = 10
+max_docs = 10000
+
+# mail messages
+[mail]
+transport=file  # file, smtp, postmark
+template_path=mail_templates
+file_message_path=mail_messages
+postmark_api_key="67d2044f-4927-47e0-8639-2859a1f97b97"
 
 # ============================================================
 # Tenant settings
 # ============================================================
 
 [[tenants]]
+tenant_id=1
 name = "development"
 node = 1
 mode = "development"
 domain = "local.dev"
 database_driver=mongodb
 database_uri = "mongodb://localhost:27017/dev"
-log_table_name = "logs"
-log_expiration_days = 90
-log_capped = false
-log_max_size = 10
-log_max_docs = 10000
 site_title = "(development) Life Coaching"
 site_slogan = "Ret Hot Life Coaching"
 site_coach_fullname = "Donald Duck"
@@ -63,21 +60,15 @@ site_author_name = "miketerry.org"
 site_author_url = "https://miketerry.org"
 site_copyright = 2025
 site_roles = ["Guest", "client", "coach", "admin"]
-postmark_api_key = "67d2044f-4927-47e0-8639-2859a1f97b97"
-
 
 [[tenants]]
+tenant_id=2
 name = "Testing"
 node = 1
 mode = "testing"
 domain = "local.test"
 database_driver=mongodb
 database_uri = "mongodb://localhost:27017/test"
-log_collection_name = "logs"
-log_expiration_days = 2
-log_capped = false
-log_max_size = 20
-log_max_docs = 20000
 site_title = "(Test) Life Coaching"
 site_slogan = "Quality, comprehensive life coaching for everyone"
 site_coach_fullname = "Dylan Terry"
@@ -89,21 +80,16 @@ site_author_name = "miketerry.org"
 site_author_url = "https://miketerry.org"
 site_copyright = 2025
 site_roles = ["Guest", "client", "coach", "admin"]
-postmark_api_key = "67d2044f-4927-47e0-8639-2859a1f97b97"
 
 
 [[tenants]]
+tenant_id=3
 name = "Staging"
 node = 1
 mode = "staging"
 domain = "local.stage"
 database_driver=mongodb
 database_uri = "mongodb://localhost:27017/stage"
-log_collection_name = "logs"
-log_expiration_days = 2
-log_capped = false
-log_max_size = 20
-log_max_docs = 20000
 site_title = "Two Roads Movement"
 site_slogan = "Quality, comprehensive life coaching for everyone"
 site_coach_fullname = "Dylan Terry"
@@ -115,20 +101,15 @@ site_author_name = "miketerry.org"
 site_author_url = "https://miketerry.org"
 site_copyright = 2025
 site_roles = ["Guest", "client", "coach", "admin"]
-postmark_api_key = "67d2044f-4927-47e0-8639-2859a1f97b97"
 
 [[tenants]]
+tenant_id=4
 name = "Production"
 node = 1
 mode = "Production"
 domain = "local.prod"
 database_driver=mongodb
 database_uri = "mongodb://localhost:27017/prod"
-log_collection_name = "logs"
-log_expiration_days = 2
-log_capped = false
-log_max_size = 20
-log_max_docs = 20000
 site_title = "Two Roads Movement"
 site_slogan = "Quality, comprehensive life coaching for everyone"
 site_coach_fullname = "Dylan Terry"
@@ -140,4 +121,3 @@ site_author_name = "miketerry.org"
 site_author_url = "https://miketerry.org"
 site_copyright = 2025
 site_roles = ["Guest", "client", "coach", "admin"]
-postmark_api_key = "67d2044f-4927-47e0-8639-2859a1f97b97"
