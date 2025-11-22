@@ -1,123 +1,178 @@
-# ============================================================
-# Server settings
-# ============================================================
 [server]
-id=1
-node_id=1
+server_id = 1
 http_port = 3000
+database_driver = "mongodb"
 rate_limit_minutes = 10
 rate_limit_requests = 200
 body_limit = "10kb"
-session_secret = "2ab976ae98b6a83ca401a8dd15fefdc193c2d4702e56ea1d5efdea4174407d69"
 static_path = "public"
-views_path = "views"
-views_default_layout = "default_layout.hbs"
-views_layouts_path = "views/layouts"
-views_partials_path = "views/partials"
+environment = "development"  # server environment: development, staging, production
 
-# redis session storage
-[redis]
+[server.views]
+path = "views"
+default_layout = "default_layout.hbs"
+layouts_path = "views/layouts"
+partials_path = "views/partials"
+
+[server.platform]
+user_roles = ["Guest", "client", "coach", "admin"]
+platform_author_name = "miketerry.org"
+platform_author_url = "https://miketerry.org"
+support_email = "support@miketerry.org"
+support_url = "https://local.mercury/support"
+copyright = 2025
+
+[server.session]
+session_secret = "2ab976ae98b6a83ca401a8dd15fefdc193c2d4702e56ea1d5efdea4174407d69"
+
+[server.session.redis]
 host = "127.0.0.1"
 port = 6379
-password = ""   # optional
-prefix = "sess:" # optional
+password = ""                          # optional
+prefix = "sess:"                       # optional
 
-# logging
-[log]
+[server.log]
+database_uri = "mongodb://localhost:27017/logs"
 table_name = "logs"
 expiration_days = 1
 capped = false
 max_size = 10
 max_docs = 10000
 
-# mail messages
-[mail]
-transport=file  # file, smtp, postmark
-template_path=mail_templates
-file_message_path=mail_messages
-postmark_api_key="67d2044f-4927-47e0-8639-2859a1f97b97"
+[server.mail]
+transport = "file"
+template_path = "mail_templates"
 
-# ============================================================
-# Tenant settings
-# ============================================================
+[server.mail.file]
+output_path= "mail_messages"
+
+[server.mail.postmark]
+api_key = "67d2044f-4927-47e0-8639-2859a1f97b97"
+
+[server.mail.smtp]
+host = "smtp.example.com"
+port = 587
+username = "username"
+password = "password"
+
+[server.mail.sendgrid]
+api_key = ""
+
+###############################################################
+# Tenants
+###############################################################
 
 [[tenants]]
-tenant_id=1
-name = "development"
-node = 1
-mode = "development"
+tenant_id = 1
+name = "Development"
+environment = "development"
+server_node = 1
 domain = "local.dev"
-database_driver=mongodb
 database_uri = "mongodb://localhost:27017/dev"
-site_title = "(development) Life Coaching"
-site_slogan = "Ret Hot Life Coaching"
-site_coach_fullname = "Donald Duck"
-site_coach_email = "donald.duck@mercurylifecoaching.com"
-site_support_email = "support@miketerry.org"
-site_support_url = "https://local.mercury/support"
-site_owner = "Mercury Life Coaching, LLC"
-site_author_name = "miketerry.org"
-site_author_url = "https://miketerry.org"
-site_copyright = 2025
-site_roles = ["Guest", "client", "coach", "admin"]
+theme_mode = "lightMode"
+
+[tenants.site]
+title = "(development) Life Coaching"
+slogan = "Red Hot Life Coaching"
+tenant_owner = "Mercury Life Coaching, LLC"
+coach_fullname = "Donald Duck"
+coach_email = "donald.duck@mercurylifecoaching.com"
+support_email = "support@mercurylifecoaching.com"
+support_url = "https://local.mercury/support"
+
+[tenants.views]
+views_path = "tenants/dev/views"
+layouts_path = "tenants/dev/views/layouts"
+partials_path = "tenants/dev/views/partials"
+default_layout = "dev_default_layout.hbs"
+
+[tenants.assets]
+logo_path = "assets/logos/dev_logo.png"
+mail_templates_path = "tenants/dev/mail_templates"
+
 
 [[tenants]]
-tenant_id=2
+tenant_id = 2
 name = "Testing"
-node = 1
-mode = "testing"
+environment = "testing"
+server_node = 1
 domain = "local.test"
-database_driver=mongodb
 database_uri = "mongodb://localhost:27017/test"
-site_title = "(Test) Life Coaching"
-site_slogan = "Quality, comprehensive life coaching for everyone"
-site_coach_fullname = "Dylan Terry"
-site_coach_email = "dylan.terry@tworoadsmovement.com"
-site_support_email = "support@tworoadsmovement.com"
-site_support_url = "https://www.tworoadsmovement.com/support"
-site_owner = "Two Roads Movement, LLC"
-site_author_name = "miketerry.org"
-site_author_url = "https://miketerry.org"
-site_copyright = 2025
-site_roles = ["Guest", "client", "coach", "admin"]
+theme_mode = "darkMode"
+
+[tenants.site]
+title = "(Test) Life Coaching"
+slogan = "Quality, comprehensive life coaching for everyone"
+tenant_owner = "Two Roads Movement, LLC"
+coach_fullname = "Dylan Terry"
+coach_email = "dylan.terry@tworoadsmovement.com"
+support_email = "support@tworoadsmovement.com"
+support_url = "https://www.tworoadsmovement.com/support"
+
+[tenants.views]
+views_path = "tenants/test/views"
+layouts_path = "tenants/test/views/layouts"
+partials_path = "tenants/test/views/partials"
+default_layout = "test_default_layout.hbs"
+
+[tenants.assets]
+logo_path = "assets/logos/test_logo.png"
+mail_templates_path = "tenants/test/mail_templates"
 
 
 [[tenants]]
-tenant_id=3
+tenant_id = 3
 name = "Staging"
-node = 1
-mode = "staging"
+environment = "staging"
+server_node = 1
 domain = "local.stage"
-database_driver=mongodb
 database_uri = "mongodb://localhost:27017/stage"
-site_title = "Two Roads Movement"
-site_slogan = "Quality, comprehensive life coaching for everyone"
-site_coach_fullname = "Dylan Terry"
-site_coach_email = "dylan.terry@tworoadsmovement.com"
-site_support_email = "support@tworoadsmovement.com"
-site_support_url = "https://www.tworoadsmovement.com/support"
-site_owner = "Two Roads Movement, LLC"
-site_author_name = "miketerry.org"
-site_author_url = "https://miketerry.org"
-site_copyright = 2025
-site_roles = ["Guest", "client", "coach", "admin"]
+theme_mode = "lightMode"
+
+[tenants.site]
+title = "Two Roads Movement"
+slogan = "Quality, comprehensive life coaching for everyone"
+tenant_owner = "Two Roads Movement, LLC"
+coach_fullname = "Dylan Terry"
+coach_email = "dylan.terry@tworoadsmovement.com"
+support_email = "support@tworoadsmovement.com"
+support_url = "https://www.tworoadsmovement.com/support"
+
+[tenants.views]
+views_path = "tenants/stage/views"
+layouts_path = "tenants/stage/views/layouts"
+partials_path = "tenants/stage/views/partials"
+default_layout = "stage_default_layout.hbs"
+
+[tenants.assets]
+logo_path = "assets/logos/stage_logo.png"
+mail_templates_path = "tenants/stage/mail_templates"
+
 
 [[tenants]]
-tenant_id=4
+tenant_id = 4
 name = "Production"
-node = 1
-mode = "Production"
+environment = "production"
+server_node = 1
 domain = "local.prod"
-database_driver=mongodb
 database_uri = "mongodb://localhost:27017/prod"
-site_title = "Two Roads Movement"
-site_slogan = "Quality, comprehensive life coaching for everyone"
-site_coach_fullname = "Dylan Terry"
-site_coach_email = "dylan.terry@tworoadsmovement.com"
-site_support_email = "support@tworoadsmovement.com"
-site_support_url = "https://www.tworoadsmovement.com/support"
-site_owner = "Two Roads Movement, LLC"
-site_author_name = "miketerry.org"
-site_author_url = "https://miketerry.org"
-site_copyright = 2025
-site_roles = ["Guest", "client", "coach", "admin"]
+theme_mode = "darkMode"
+
+[tenants.site]
+title = "Two Roads Movement"
+slogan = "Quality, comprehensive life coaching for everyone"
+tenant_owner = "Two Roads Movement, LLC"
+coach_fullname = "Dylan Terry"
+coach_email = "dylan.terry@tworoadsmovement.com"
+support_email = "support@tworoadsmovement.com"
+support_url = "https://www.tworoadsmovement.com/support"
+
+[tenants.views]
+views_path = "tenants/prod/views"
+layouts_path = "tenants/prod/views/layouts"
+partials_path = "tenants/prod/views/partials"
+default_layout = "prod_default_layout.hbs"
+
+[tenants.assets]
+logo_path = "assets/logos/prod_logo.png"
+mail_templates_path = "tenants/prod/mail_templates"
